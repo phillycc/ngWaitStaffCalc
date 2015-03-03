@@ -2,57 +2,40 @@
 
 angular.module('ngWaitStaffCalc')
   .controller('MainCtrl', function ($scope) {
-    $scope.awesomeThings = [
-      {
-        'title': 'AngularJS',
-        'url': 'https://angularjs.org/',
-        'description': 'HTML enhanced for web apps!',
-        'logo': 'angular.png'
-      },
-      {
-        'title': 'BrowserSync',
-        'url': 'http://browsersync.io/',
-        'description': 'Time-saving synchronised browser testing.',
-        'logo': 'browsersync.png'
-      },
-      {
-        'title': 'GulpJS',
-        'url': 'http://gulpjs.com/',
-        'description': 'The streaming build system.',
-        'logo': 'gulp.png'
-      },
-      {
-        'title': 'Jasmine',
-        'url': 'http://jasmine.github.io/',
-        'description': 'Behavior-Driven JavaScript.',
-        'logo': 'jasmine.png'
-      },
-      {
-        'title': 'Karma',
-        'url': 'http://karma-runner.github.io/',
-        'description': 'Spectacular Test Runner for JavaScript.',
-        'logo': 'karma.png'
-      },
-      {
-        'title': 'Protractor',
-        'url': 'https://github.com/angular/protractor',
-        'description': 'End to end test framework for AngularJS applications built on top of WebDriverJS.',
-        'logo': 'protractor.png'
-      },
-      {
-        'title': 'jQuery',
-        'url': 'http://jquery.com/',
-        'description': 'jQuery is a fast, small, and feature-rich JavaScript library.',
-        'logo': 'jquery.jpg'
-      },
-      {
-        'title': 'Bootstrap',
-        'url': 'http://getbootstrap.com/',
-        'description': 'Bootstrap is the most popular HTML, CSS, and JS framework for developing responsive, mobile first projects on the web.',
-        'logo': 'bootstrap.png'
-      }
-    ];
-    angular.forEach($scope.awesomeThings, function(awesomeThing) {
-      awesomeThing.rank = Math.random();
-    });
+
+    var counter = 0;
+    $scope.customers = [{}];
+
+    $scope.submit = function(mealForm){
+      counter+=1;
+
+      $scope.customers.push({
+          meal: counter,
+          price: Number(mealForm.price.$viewValue),
+          tax: Number(mealForm.price.$viewValue)*Number(mealForm.tax.$viewValue)/100,
+          sub: Number(mealForm.price.$viewValue)+Number(mealForm.price.$viewValue)*Number(mealForm.tax.$viewValue)/100,
+          tip: Number(mealForm.tip.$viewValue)/100*(Number(mealForm.price.$viewValue)+Number(mealForm.price.$viewValue)*Number(mealForm.tax.$viewValue)/100)
+      });
+
+      $scope.ccSubtotal = $scope.customers[counter].sub;
+      $scope.ccTip = $scope.customers[counter].tip;
+      $scope.ccTotal = $scope.customers[counter].sub + $scope.customers[counter].tip;
+
+      $scope.customers[counter]['total'] = counter===1 ? $scope.customers[counter].tip : $scope.customers[counter].tip + $scope.customers[counter-1].total;
+      $scope.customers[counter]['avg'] = counter===1 ? $scope.customers[counter].tip : $scope.customers[counter].total/counter;
+
+      $scope.eiTip = $scope.customers[counter].total;
+      $scope.eiMeal = $scope.customers[counter].meal;
+      $scope.eiAvg = $scope.customers[counter].avg;
+    }
+
+    $scope.cancel = function (){
+      
+    }
+
+    $scope.reset = function (){
+      counter = 0;
+      $scope.customers = [{}];
+    }
+
   });

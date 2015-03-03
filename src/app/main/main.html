@@ -1,33 +1,40 @@
-<div class="container">
+<div class="container" ng-controller="MainCtrl as ctrl">
 
   <div class="row">
     <div class="col-xs-6" id="input">
       <h4>Enter the Meal Details</h4>
-      <form>
-        <label for="Price">Base Meal Price:</label><br/>
-        <input type="text" id="Price" name="Price" /><br/>
-        <label for="Tax">Tax Rate:</label><br/>
-        <input type="text" id="Tax" name="Tax" /><br/>
-        <label for="Tip">Tip Percentage:</label><br/>
-        <input type="text" id="Tip" name="Tip" /><br/>
-        <button>Submit</button>
-        <button>Cancel</button>
+      <form name="mealForm" role="form">
+        <div class="form-group">
+          <label for="price">Base Meal Price:</label><br/>
+          <input type="number" id="price" name="price" ng-model="ctrl.price" required /><br/>
+        </div>
+        <div class="form-group">
+          <label for="tax">Tax Rate %:</label><br/>
+          <input type="number" id="tax" name="tax" ng-model="ctrl.tax" required /><br/>
+        </div>
+        <div class="form-group">
+          <label for="tip">Tip Percentage %:</label><br/>
+          <input type="number" id="tip" name="tip" ng-model="ctrl.tip" required /><br/>
+        </div>
+
+        <button class="btn btn-default" ng-click="submit(mealForm)">Submit</button>
+        <button class="btn btn-default" ng-click="cancel()">Cancel</button>
       </form>
     </div>
     <div class="col-xs-6">
         <div class="row" id="output">
           <h4>Customer Charges</h4>
-          <label>Subtotal</label><br/>
-          <label>Tip</label><br/>
-          <label>Total</label><br/>
+          <label>Subtotal:</label> {{ ccSubtotal }}<br/>
+          <label>Tip:</label> {{ ccTip }}<br/>
+          <label>Total:</label> {{ ccTotal }}<br/>
         </div>
         <div class="row" id="output">
           <h4>My Earnings Info</h4>
-          <label>Tip Total</label><br/>
-          <label>Meal Count</label><br/>
-          <label>Avg Tip Per Meal</label><br/>
+          <label>Tip Total:</label> {{ eiTip }}<br/>
+          <label>Meal Count:</label> {{ eiMeal }}<br/>
+          <label>Avg Tip Per Meal:</label> {{ eiAvg }}<br/>
         </div>
     </div>
   </div>
-  <button class="reset">Reset</button>
+  <button class="btn btn-default" id="reset" ng-click="reset()">Reset</button>
 </div>
