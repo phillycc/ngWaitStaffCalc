@@ -4,7 +4,7 @@ angular.module('ngWaitStaffCalc')
   .controller('MainCtrl', function ($scope) {
 
     var counter = 0;
-    $scope.customers = [{}];
+    $scope.customers = [];
 
     $scope.submit = function(mealForm){
       counter+=1;
@@ -27,15 +27,17 @@ angular.module('ngWaitStaffCalc')
       $scope.eiTip = $scope.customers[counter].total;
       $scope.eiMeal = $scope.customers[counter].meal;
       $scope.eiAvg = $scope.customers[counter].avg;
+      $scope.ctrl = {};
     }
 
     $scope.cancel = function (){
-      
+      $scope.ctrl = {};
     }
 
     $scope.reset = function (){
       counter = 0;
-      $scope.customers = [{}];
+      $scope.ctrl = {};
+      $scope.customers = [];
     }
 
   });
