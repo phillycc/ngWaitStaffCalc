@@ -1,0 +1,25 @@
+<div class="container">
+  <div ng-include="'components/navbar/navbar.html'"></div>
+
+  <div class="row">
+    <h1>Waitstaff Calculator</h1>
+  </div>
+
+  <div class="row">
+    <div class="col-xs-12" id="output">
+      <h4>Customer Charges</h4>
+      <label>Subtotal:</label> {{ ccSubtotal }}<br/>
+      <label>Tip:</label> {{ ccTip }}<br/>
+      <label>Total:</label> {{ ccTotal }}<br/>
+    </div>
+    <div class="col-xs-12" id="output">
+      <h4>My Earnings Info</h4>
+      <label>Tip Total:</label> {{ eiTip }}<br/>
+      <label>Meal Count:</label> {{ eiMeal }}<br/>
+      <label>Avg Tip Per Meal:</label> {{ eiAvg }}<br/>
+    </div>
+  </div>
+
+  <button class="btn btn-default" id="reset" ng-click="reset()">Reset</button>
+
+</div>

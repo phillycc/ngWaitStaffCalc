@@ -1,0 +1,30 @@
+<div class="container">
+  <div ng-include="'components/navbar/navbar.html'"></div>
+
+  <div class="row">
+    <h1>Waitstaff Calculator</h1>
+  </div>
+
+  <div class="row">
+    <div class="col-xs-12" id="input">
+      <h4>Enter the Meal Details</h4>
+      <form name="mealForm" role="form">
+        <div class="form-group">
+          <label for="price">Base Meal Price:</label><br/>
+          <input type="number" id="price" name="price" ng-model="meal.price" required /><br/>
+        </div>
+        <div class="form-group">
+          <label for="tax">Tax Rate %:</label><br/>
+          <input type="number" id="tax" name="tax" ng-model="meal.tax" required /><br/>
+        </div>
+        <div class="form-group">
+          <label for="tip">Tip Percentage %:</label><br/>
+          <input type="number" id="tip" name="tip" ng-model="meal.tip" required /><br/>
+        </div>
+
+        <button class="btn btn-default" ng-click="submit(mealForm)">Submit</button>
+        <button class="btn btn-default" ng-click="cancel()">Cancel</button>
+      </form>
+    </div>
+  </div>
+</div>

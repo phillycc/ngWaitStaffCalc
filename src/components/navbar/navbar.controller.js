@@ -1,6 +1,6 @@
 'use strict';
 
 angular.module('ngWaitStaffCalc')
-  .controller('NavbarCtrl', function ($scope) {
+  .controller('NavController', function ($scope) {
     $scope.date = new Date();
   });
