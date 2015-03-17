@@ -1,30 +1,27 @@
 'use strict';
 
 angular.module('ngWaitStaffCalc')
-  .controller('MealController', function ($scope) {
-
-    var counter = 0;
-    $scope.customers = [];
+  .controller('MealController', ['$scope', 'CustomerService', function ($scope, CustomerService) {
+    console.log("CustServ: " , CustomerService);
 
     $scope.submit = function(mealForm){
 
-      $scope.customers.push({
-          meal: counter,
+      CustomerService.addCustomer({
           price: Number(mealForm.price.$viewValue),
           tax: Number(mealForm.price.$viewValue)*(Number(mealForm.tax.$viewValue)/100),
           sub: Number(mealForm.price.$viewValue)+Number(mealForm.price.$viewValue)*(Number(mealForm.tax.$viewValue)/100),
           tip: Number(mealForm.tip.$viewValue)/100*(Number(mealForm.price.$viewValue)+Number(mealForm.price.$viewValue)*Number(mealForm.tax.$viewValue)/100)
       });
 
-      $scope.customers[counter]['total'] = counter===0 ? $scope.customers[counter].tip : $scope.customers[counter].tip + $scope.customers[counter-1].total;
-      $scope.customers[counter]['avg'] = counter===0 ? $scope.customers[counter].tip : $scope.customers[counter].total/counter;
+      $scope.ccSubtotal = CustomerService.customers[CustomerService.counter-1].sub;
+      $scope.ccTip = CustomerService.customers[CustomerService.counter-1].tip;
+      $scope.ccTotal = CustomerService.customers[CustomerService.counter-1].sub + CustomerService.customers[CustomerService.counter-1].tip;
 
       $scope.meal = {};
-      counter+=1;
     }
 
     $scope.cancel = function (){
       $scope.meal = {};
     }
 
-  });
+  }]);
